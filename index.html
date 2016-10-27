@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/default.min.css"/>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <title>
+      MineQuery Docs
+    </title>
+  </head>
+  <body>
+    <h1>
+      MineQuery
+    </h1>
+    <hr/>
+    <div class="section">
+      <h2>
+        What is MineQuery
+      </h2>
+      <p>
+        Minequery is a JQuery inspired scripting platform for Minecraft, using Javascript. Intended for adventure maps, minigames, and modpacks. This allows creators to easily add an extra dimension to their creations. The main benefit to MineQuery is that it does not require extensive programming experience to use effectively.
+      </p>
+    </div>
+    <div class="section">
+      <h2>
+        What can it do?
+      </h2>
+      <p>
+        Right now not very much, it is only a very early tech demo
+      </p>
+    </div>
+    <div class="section">
+      <h2>
+        Help! It crashed my game!
+      </h2>
+      <p>
+        This tech demo is not stable! Bug reports are welcome, please email the crash logs, and copies of all scripts you are using, to bugreports@mineovation.com
+      </p>
+    </div>
+    <div class="section">
+      <h2>
+        How do I use it
+      </h2>
+      <p>
+        Scripts are loaded from the <span class="folder">minequery-scripts</span> folder inside of the <span class="folder">config</span> folder for your Minecraft installation
+      </p>
+    </div>
+    <div class="section">
+      <h2>
+        Downloads
+      </h2>
+      <p>
+        There are no download links yet... sorry.
+      </p>
+    </div>
+    <div class="section">
+      <h2>
+        API Documentation
+      </h2>
+      <div class="api">
+        <h3>
+          Usage
+        </h3>
+        <p>
+          MineQuery's featurs are exposed through the global function '$', this takes one argument: a selector. The selector determines what blocks/worlds/players/etc are affected by any chained functions.
+        </p>
+      </div>
+      <div class="api">
+        <h3>
+          Examples
+        </h3>
+        <div class="script">
+          <h4>Write Only Challenge</h4>
+          <p>
+            This code sample create a challenging gamemode that only lets players break blocks from worldgen, once they place a block down it is permanent.
+          </p>
+          <pre><code class="js">
+            $('*').on('place', function (event) {    // Whenever any block is placed
+              $(this).on('break', function (event) { // when anyone tries to break that block
+                event.cancel()                       // don't allow the block to break.
+              }
+            }
+          </code></pre>
+      </div>
+      <div class="api">
+        <h3>
+          Selectors
+        </h3>
+        <div class="list selectors">
+          <ul>
+            <li>
+              <span class="selname">Greedy Selector</span>
+              <p>
+                '<span class="selector">*</span>' Selects everything.
+              </p>
+              <div class="example">
+                <p>
+                  Example
+                </p>
+                <pre><code class="js">$('*')</code></pre>
+                <p>
+                  selects everything in game.
+                </p>
+              </div>
+              <div class="seltype">
+                <p>
+                  Selector Type
+                </p>
+                <ul>
+                  <li>
+                    <span class="type">Block</span><span class="subtype">:(ambiguous)</span>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <span class="selname">Mod Selector</span>
+              <p>
+                '<span class="selector">@MODID</span>' Selects all blocks/items from MODID.
+              </p>
+              <div class="example">
+                <p>
+                  Example:
+                </p>
+                <pre><code class="js">$('@minecraft')</code></pre>
+                <p>
+                  selects all blocks/items from vanilla minecraft.
+                </p>
+              </div>
+              <div class="seltype">
+                <p>
+                  Selector Type
+                </p>
+                <ul>
+                  <li>
+                    <span class="type">Block</span><span class="subtype">:(ambiguous)</span>
+                  </li>
+                  <li>
+                    <span class="type">Item</span><span class="subtype">:(ambiguous)</span>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <span class="selname">Block Name Selector</span>
+              <p>
+                '<span class="selector">@MODID:BLOCKNAME</span>' Select BLOCKNAME (every meta value) from MODID.
+              </p>
+              <div class="example">
+                <p>
+                  Example:
+                </p>
+                <pre><code class="js">$('@minecraft:wool')</code></pre>
+                <p>
+                  selects every color of wool.
+                </p>
+              </div>
+              <div class="seltype">
+                <p>
+                  Selector Type
+                </p>
+                <ul>
+                  <li>
+                    <span class="type">Block</span><span class="subtype">:(ambiguous)</span>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <span class="selname">Block Name Meta Selector</span>
+              <p>
+                '<span class="selector">@MODID:BLOCKNAME:META</span>' Select BLOCKNAME with meta META from MODID.
+              </p>
+              <div class="example">
+                <p>
+                  Example:
+                </p>
+                <pre><code class="js">$('@minecraft:dirt:1')</code></pre>
+                <p>
+                  selects all Coarse Dirt.
+                </p>
+              </div>
+              <div class="seltype">
+                <p>
+                  Selector Type
+                </p>
+                <ul>
+                  <li>
+                    <span class="type">Block</span><span class="subtype">:(ambiguous)</span>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <span class="selname">Location Selector</span>
+              <p>
+                '<span class="selector">[X,Y,Z]</span>' Select block located at X Y Z.
+              </p>
+              <div class="example">
+                <p>
+                  Example:
+                </p>
+                <pre><code class="js">$('[10,50,14]')</code></pre>
+                <p>
+                  selects block at x:10 y:50 z:14.
+                </p>
+              </div>
+              <div class="seltype">
+                <p>
+                  Selector Type
+                </p>
+                <ul>
+                  <li>
+                    <span class="type">Block</span><span class="subtype">:(disambiguous)</span>
+                  </li>
+                  <li>
+                    <span class="type">Entity</span><span class="subtype">:(disambiguous)</span>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <span class="selname">Range</span>
+              <p>
+                '<span class="selector">[X1,Y1,Z1]:to[X2,Y2,Z2]</span>' Selects all blocks between X1 Y1 Z1 and X2 Y2 Z2.
+              </p>
+              <div class="example">
+                <p>
+                  Example:
+                </p>
+                <pre><code class="js">$('[0,0,0]:to[100,100,-100]')</code></pre>
+                <p>
+                  selects all blocks from X:0 Y:0 Z:0 to X:100 Y:100 Z:-100.
+                </p>
+              </div>
+              <div class="seltype">
+                <p>
+                  Selector Type
+                </p>
+                <ul>
+                  <li>
+                    <span class="type">Block</span><span class="subtype">:(disambiguous)</span>
+                  </li>
+                  <li>
+                    <span class="type">Entity</span><span class="subtype">:(disambiguous)</span>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <span class="selname">Relative Range</span>
+              <p>
+                '<span class="selector">[X1,Y1,Z1]:to[~,~+1,~-1]</span>' selects all blacks between X1 Y1 Z1 and X1 Y1+1 Z1-1,
+              </p>
+              <div class="example">
+                <p>
+                  Example:
+                </p>
+                <pre><code class="js">$('[0,0,0]:to[~,~+256,~]')</code></pre>
+                <p>
+                  Selects from X:0 Y:0 Z:0 to build limit.
+                </p>
+              </div>
+              <div class="seltype">
+                <p>
+                  Selector Type
+                </p>
+                <ul>
+                  <li>
+                    <span class="type">Block</span><span class="subtype">:(disambiguous)</span>
+                  </li>
+                  <li>
+                    <span class="type">Entity</span><span class="subtype">:(disambiguous)</span>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <h3>
+          Functions
+        </h3>
+        <div class="list functions">
+          <ul>
+            <li>
+              <span class="funname">on</span>
+              <pre><code class="js">$('*').on('event_name', function (event) { //Callback })</code></pre>
+              <p>
+                Registers a callback function to be called when the event with 'event_name' is fired and matches the selector.
+              </p>
+              <div class="example">
+                <p>
+                  Example:
+                </p>
+                <pre><code class="js">$(@minecraft:dirt).on('break', function (event) { console.log(this) })</code></pre>
+                <p>
+                  Registers callback to be called every time any dirt is broken that will print out information about the block broken.
+                </p>
+              </div>
+              <div class="requirement">
+                <p>
+                  'on' works with any block selector.
+                </p>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <h3>
+          Events
+        </h3>
+        <div class="list eventfunctions">
+          <h4>Event Functions</h4>
+          <p>
+            event listener callbacks will include an event object, these functions can be called on the event object.
+          </p>
+          <ul>
+            <li>
+              <pre><code class="js">cancel()</code></pre>
+              <p>
+                Will cancel event if possible
+              </p>
+            </li>
+            <li>
+              <pre><code class="js">uncancel()</code></pre>
+              <p>
+                Will stop event from being canceled if possible
+              </p>
+            </li>
+          </ul>
+        </div>
+        <div class="list events">
+          <h4>Event Types</h4>
+          <p>
+            These are the minecraft events that can hand event listeners registered to, these should be passed as the first argument in the 'on()' function
+          </p>
+          <ul>
+            <li>
+              <span class="event">Block Break</span>
+              <p>
+                'break' Fires when a block is broken
+              </p>
+              <div class="requirements">
+                <p>
+                  Applicable selectors
+                </p>
+                <ul>
+                  <li>
+                    Block
+                  </li>
+                </ul>
+              </div>
+              <div class="thisobj">
+                <p>
+                  This selector: Selects block that is broken.
+                </p>
+              </div>
+            </li>
+            <li>
+              <span class="event">Block Place</span>
+              <p>
+                'place' Fire when a black is places
+              </p>
+              <div class="requirement">
+                <p>
+                  Applicable selectors
+                </p>
+                <ul>
+                  <li>
+                    Block
+                  </li>
+                </ul>
+              </div>
+              <div class="thisobj">
+                <p>
+                  This selector: Select block that was placed.
+                </p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

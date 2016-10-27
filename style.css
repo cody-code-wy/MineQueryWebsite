@@ -1,0 +1,37 @@
+body {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: 20%;
+}
+
+.section {
+  margin-top: 2em;
+}
+
+.section > p {
+  margin-left: 2.5em;
+}
+
+.api, .script {
+  margin-left: 1em;
+}
+
+.api > p, .script > p, .script > pre{
+  margin-left: 1.5em;
+}
+
+.list > ul > li , .script{
+  margin-top: 1.8em;
+  padding-bottom: 0.8em;
+  border-bottom: black 1px solid;
+  display: block;
+}
+
+.selname {
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-left: -1.1em;
+}
+
